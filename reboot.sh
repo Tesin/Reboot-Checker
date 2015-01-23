@@ -1,7 +1,12 @@
 #!/bin/bash
+# Reboot Checker
 #
-# Information gathering script to document certain pieces of information about a server
+# About: Information gathering script to document certain pieces of information about a server
 # and to see if it is safe for rebooting.
+#
+# Authors: Sean B, Steve R, and some yet to be identified person who wrote a similar script for rs-automations whom I borrowed from.
+# Usage: bash <(curl -sS https://raw.githubusercontent.com/Tesin/Reboot-Checker/master/reboot.sh)
+
 
 # Declare color codes for use
 red='\033[0;31m'
