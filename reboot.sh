@@ -21,8 +21,10 @@ printf "=    EVT - RHEL Upgrade Pre-Flight     =\n"
 printf "========================================\n\n"
 
 printf "\nPlease make sure to check the known-limitations of Leapp Upgrade Tool:\n"
-printf "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/upgrading_from_rhel_7_to_rhel_8/planning-an-upgrade_upgrading-from-rhel-7-to-rhel-8"
-printf ${nc}
+printf "${nc}"
+printf "${blue}"
+printf "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/upgrading_from_rhel_7_to_rhel_8/planning-an-upgrade_upgrading-from-rhel-7-to-rhel-8\n\n"
+printf "${nc}"
 
 
 # Check to see if this is being run as root
