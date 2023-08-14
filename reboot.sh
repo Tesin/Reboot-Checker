@@ -34,7 +34,7 @@ if [ ! "$(whoami | grep "^root$")" ] ; then
   exit
 elif
   printf "${green}"
-  printf "Good! \u2714"
+  printf "Hi"
   printf "${nc}"
 fi
 
