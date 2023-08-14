@@ -34,8 +34,8 @@ printf "\n\n${blue}Check to see if running as root...${nc}\n"
 if [ ! "$(whoami | grep "^root$")" ] ; then
   printf "... You must run this script as root!"
   exit
-elif
-  printf "\u2714"
+else
+  printf ${green}"\u2714${nc}\n" # Green check mark
 fi
 
 
