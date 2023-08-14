@@ -27,14 +27,14 @@ printf "\n\n"
 printf "${nc}"
 
 
-# Check to see if this is being run as root
-printf "\n\n${blue}Check to see if running as root...${nc}\n"
-if [ ! "$(whoami | grep "^root$")" ] ; then
-  printf "... You must run this script as root!"
-  exit
-elif
-  printf "Hi"
-fi
+# # Check to see if this is being run as root
+# printf "\n\n${blue}Check to see if running as root...${nc}\n"
+# if [ ! "$(whoami | grep "^root$")" ] ; then
+#   printf "... You must run this script as root!"
+#   exit
+# elif
+#   printf "Hi"
+# fi
 
 
 # General Info
