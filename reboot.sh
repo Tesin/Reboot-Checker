@@ -101,7 +101,7 @@ done
 printf "\n\n"
 
 
-# Check filesystems for possibility of fsck. As of right now this only checks for ext filesystems. This probably shouold be expanded to include other types.
+# Check filesystems for possibility of fsck. As of right now this only checks for xfs and nvm strings in mount output.
 printf "${blue}Check filesystems for possibility of fsck\n${nc}"
 for filesystem in $(mount | egrep -i 'xfs|nvm' | awk '{print $1}'); do
   printf "${blue}$filesystem\n${nc}"
@@ -116,7 +116,7 @@ nfsexports=$(showmount -e 2>/dev/null | egrep -vi 'Export list')
 if [ "$nfsexports" ] ; then
   echo $nfsexports
 else
-  printf "None found\n"
+  printf "${green}None found${nc}\n"
 fi
 printf "\n\n"
 
@@ -128,7 +128,7 @@ nfslist=$(mount | egrep -vi $fsfilter | egrep -i nfs)
 if [ "$nfslist" ] ; then
   echo $nfslist
 else
-printf "None found\n"
+printf "${green}None found${nc}\n"
 fi
 printf "\n\n"
 
@@ -143,9 +143,9 @@ printf "\n\n"
 # Check for RHCS cluster
 printf "${blue}Check for RHCS clustering${nc}\n"
 if [ -f /etc/cluster/cluster.conf ] ; then
-  printf "The file /etc/cluster/cluster.conf exists. This may be a node in an RHCS cluster."
+  printf "${red}The file /etc/cluster/cluster.conf exists. This may be a node in an RHCS cluster.${nc}"
 else
-  printf "The file /etc/cluster/cluster.conf not found.\n"
+  printf "${green}The file /etc/cluster/cluster.conf not found.${nc}\n"
 fi
 
 clustat > /dev/null 2>&1
@@ -153,24 +153,23 @@ clusexit=$?
 if [ $clusexit -eq 0 ] ; then
   clustat
 else
-  printf "Clustat command not found.\n"
+  printf "${green}Clustat command not found${nc}.\n"
 fi
 printf "\n\n"
 
 
 # Check for Managed Storage
-# This section is borrowed and needs to be verified by someone who really knows managed storage
 # Our maintenance playbooks rely on: multipath -ll; powermt display; df -h; fdisk -cul;
 printf "${blue}Check for Managed Storage${nc}\n"
 if [ "$(ls /dev/emc* 2>/dev/null)" ] ; then
   printf "This server appears to have SAN attached.\n"
   ll /dev/emc* 2>/dev/null
 else
-  printf "SAN not found\n"
+  printf "${green}SAN not found${nc}\n"
 fi
 
 if [ "$(grep mpp /proc/modules)" ] && [ ! "$(ls /dev/cme* 2>/dev/null)" ] ; then
-  printf "This server appears to have DAS attached.\n"
+  printf "${red}This server appears to have DAS attached.${nc}\n"
 else
-  printf "DAS not found\n"
+  printf "${green}DAS not found${nc}\n"
 fi
