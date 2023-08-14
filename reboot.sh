@@ -44,7 +44,9 @@ cat /etc/redhat-release
 printf "${nc}"
 
 printf "\n${blue}UNAME Info:\n${nc}"
+printf "${green}"
 uname -a
+printf "${nc}"
 printf "\n"
 
 printf "${blue}Verify upgrade path...${nc}\n"
@@ -53,14 +55,16 @@ printf "<<PLACEHOLDER>>\n\n"
 printf "${nc}"
 # Ensure source OS is 7.9 or 7.6 depending on ARCH
 
-printf "${green}Is RHEL running in FIPS mode?${nc}\n"
+printf "${blue}Is RHEL running in FIPS mode?${nc}\n"
+printf "${green}"
 printf "<<PLACEHOLDER>>\n\n"
+printf "${nc}"
 # Check if FIPS. Apparently this is a hard-stop and Red Hat recommends a new FIPS install versus in-place upgrade.
 
 # Check for services that are running but not chkconfig'd on. This section checks the exit code from the service command where chkconfig reports runlevel 3 as off.
 # An exit code of 0 means that it is running.
 # If more services need to be added to servicefilter, bring it up please.
-printf "${red}The following services are running but not configured to start on boot:${nc}\n"
+printf "${blue}The following services are running but not configured to start on boot:${nc}\n"
 
 servicefilter='ipmi|rhnsd|anacron|rdisc|cpuspeed|dsm_om_connsv'
 
@@ -78,7 +82,7 @@ echo
 # Check for services that are chkconfig'd on but not running. This section checks the exit code from the service command where chkconfig reports runlevel 3 as on.
 # The meaning and output as a result of non-zero status codes are dictated by the service's init script and is not standardized. Thus, for any non-zero status code,
 # the exact output from the service command is passed through to stdout.
-printf "${red}The following services are set to start on boot but not currently running:${nc}\n"
+printf "${blue}The following services are set to start on boot but not currently running:${nc}\n"
 
 for service in $(chkconfig --list | grep 3:on | awk '{print $1}' | egrep -vi $servicefilter); do
   service $service status > /dev/null
@@ -94,7 +98,7 @@ echo
 
 
 # Check filesystems for possibility of fsck. As of right now this only checks for ext filesystems. This probably shouold be expanded to include other types.
-printf "${red}Check filesystems for possibility of fsck\n${nc}"
+printf "${blue}Check filesystems for possibility of fsck\n${nc}"
 for filesystem in $(mount | grep -i ext | awk '{print $1}'); do
   printf "${blue}$filesystem\n${nc}"
   tune2fs -l $filesystem | egrep -i 'mount count|maximum mount count|last checked|check interval'
@@ -103,7 +107,7 @@ done
 
 
 # Check for any NFS exports
-printf "${red}Check for NFS exports\n${nc}"
+printf "${blue}Check for NFS exports\n${nc}"
 nfsexports=$(showmount -e 2>/dev/null | egrep -vi 'Export list')
 if [ "$nfsexports" ] ; then
   echo $nfsexports
@@ -114,7 +118,7 @@ echo
 
 
 # Check for NFS mounts
-printf "${red}Check for NFS mounts${nc}\n"
+printf "${blue}Check for NFS mounts${nc}\n"
 fsfilter='sunrpc|nfsd|usbfs|/proc|sysfs|/dev/pts|tmpfs'
 nfslist=$(mount | egrep -vi $fsfilter | egrep -i nfs)
 if [ "$nfslist" ] ; then
@@ -127,13 +131,13 @@ echo
 
 # Check for services listening on a specific IP
 ipfilter='127.0.0.1|0.0.0.0'
-printf "${red}The following services are listening on specific IP's\n${nc}"
+printf "${blue}The following services are listening on specific IP's\n${nc}"
 netstat -plnt | awk --re-interval '$4 ~ /[0-9]{1,3}(\.[0-9]{1,3}){2}\:.*/ {print $4,$7}' | egrep -vi $ipfilter
 echo
 
 
 # Check for RHCS cluster
-printf "${red}Check for RHCS clustering${nc}\n"
+printf "${blue}Check for RHCS clustering${nc}\n"
 if [ -f /etc/cluster/cluster.conf ] ; then
   printf "The file /etc/cluster/cluster.conf exists. This may be a node in an RHCS cluster."
 else
@@ -153,7 +157,7 @@ echo
 # Check for Managed Storage
 # This section is borrowed and needs to be verified by someone who really knows managed storage
 # Our maintenance playbooks rely on: multipath -ll; powermt display; df -h; fdisk -cul;
-printf "${red}Check for Managed Storage${nc}\n"
+printf "${blue}Check for Managed Storage${nc}\n"
 if [ "$(ls /dev/emc* 2>/dev/null)" ] ; then
   printf "This server appears to have SAN attached.\n"
   ll /dev/emc* 2>/dev/null
