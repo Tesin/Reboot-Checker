@@ -33,7 +33,8 @@ if [ ! "$(whoami | grep "^root$")" ] ; then
   printf "... You must run this script as root!"
   exit
 else
-  printf ${green}"\u2714${nc}\n\n" # Green check mark
+  printf ${green}"\u2714${nc}\n" # Green check mark
+  printf "\n\n"
 fi
 
 
@@ -41,23 +42,26 @@ fi
 printf "${blue}Contents of /etc/redhat-release :${nc} \n"
 printf "${green}"
 cat /etc/redhat-release
+printf "\n\n"
 printf "${nc}"
 
-printf "\n${blue}UNAME Info:\n${nc}"
+printf "${blue}UNAME Info:\n${nc}"
 printf "${green}"
 uname -a
+printf "\n\n"
 printf "${nc}"
-printf "\n"
 
 printf "${blue}Verify upgrade path...${nc}\n"
 printf "${green}"
-printf "<<PLACEHOLDER>>\n\n"
+printf "<<PLACEHOLDER>>\n"
+printf "\n\n"
 printf "${nc}"
 # Ensure source OS is 7.9 or 7.6 depending on ARCH
 
 printf "${blue}Is RHEL running in FIPS mode?${nc}\n"
 printf "${green}"
-printf "<<PLACEHOLDER>>\n\n"
+printf "<<PLACEHOLDER>>\n"
+printf "\n\n"
 printf "${nc}"
 # Check if FIPS. Apparently this is a hard-stop and Red Hat recommends a new FIPS install versus in-place upgrade.
 
@@ -76,7 +80,7 @@ for service in $(chkconfig --list | grep 3:off | awk '{print $1}' | egrep -vi $s
     printf "$service\n"
   fi
 done
-echo
+printf "\n\n"
 
 
 # Check for services that are chkconfig'd on but not running. This section checks the exit code from the service command where chkconfig reports runlevel 3 as on.
@@ -94,7 +98,7 @@ for service in $(chkconfig --list | grep 3:on | awk '{print $1}' | egrep -vi $se
     echo
   fi
 done
-echo
+printf "\n\n"
 
 
 # Check filesystems for possibility of fsck. As of right now this only checks for ext filesystems. This probably shouold be expanded to include other types.
@@ -102,7 +106,7 @@ printf "${blue}Check filesystems for possibility of fsck\n${nc}"
 for filesystem in $(mount | grep -i ext | awk '{print $1}'); do
   printf "${blue}$filesystem\n${nc}"
   tune2fs -l $filesystem | egrep -i 'mount count|maximum mount count|last checked|check interval'
-  echo
+  printf "\n\n"
 done
 
 
@@ -114,7 +118,7 @@ if [ "$nfsexports" ] ; then
 else
   printf "None found\n"
 fi
-echo
+printf "\n\n"
 
 
 # Check for NFS mounts
@@ -126,14 +130,14 @@ if [ "$nfslist" ] ; then
 else
 printf "None found\n"
 fi
-echo
+printf "\n\n"
 
 
 # Check for services listening on a specific IP
 ipfilter='127.0.0.1|0.0.0.0'
 printf "${blue}The following services are listening on specific IP's\n${nc}"
 netstat -plnt | awk --re-interval '$4 ~ /[0-9]{1,3}(\.[0-9]{1,3}){2}\:.*/ {print $4,$7}' | egrep -vi $ipfilter
-echo
+printf "\n\n"
 
 
 # Check for RHCS cluster
@@ -151,7 +155,7 @@ if [ $clusexit -eq 0 ] ; then
 else
   printf "Clustat command not found.\n"
 fi
-echo
+printf "\n\n"
 
 
 # Check for Managed Storage
