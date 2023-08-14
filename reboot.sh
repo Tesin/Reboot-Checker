@@ -33,7 +33,9 @@ if [ ! "$(whoami | grep "^root$")" ] ; then
   printf "${red}You must run this script as root!${nc}\n"
   exit
 elif
-  printf "${green}\xE2\x9C\x94${nc}"
+  printf "${green}"
+  printf "\xE2\x9C\x94"
+  printf "${nc}"
 fi
 
 
