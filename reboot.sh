@@ -15,11 +15,13 @@ green='\033[0;32m'
 nc='\033[0m'
 #printf "${green}...${nc}"
 
-printf "========================================\n"
+printf "\n\n${green}========================================\n"
 printf "=    EVT - RHEL Upgrade Pre-Flight     =\n"
-printf "========================================\n"
-printf "\nPlease make sure to check the known-limitations of Leapp Upgrade Tool:\n"
-printf "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/upgrading_from_rhel_7_to_rhel_8/planning-an-upgrade_upgrading-from-rhel-7-to-rhel-8"
+printf "========================================\n\n"
+
+printf "\nPlease make sure to check the known-limitations of Leapp Upgrade Tool:\n${nc}"
+printf "${blue}https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/upgrading_from_rhel_7_to_rhel_8/planning-an-upgrade_upgrading-from-rhel-7-to-rhel-8${nc}"
+
 
 # Check to see if this is being run as root
 printf "${green}Check to see if running as root...${nc}"
@@ -38,7 +40,7 @@ printf "\n"
 printf "${green}Verify upgrade path...${nc}"
 # Ensure source OS is 7.9 or 7.6 depending on ARCH
 
-printf "${green}IS RHEL running in FIPS mode?${nc}"
+printf "${green}Is RHEL running in FIPS mode?${nc}"
 # Check if FIPS. Apparently this is a hard-stop and Red Hat recommends a new FIPS install versus in-place upgrade.
 
 # Check for services that are running but not chkconfig'd on. This section checks the exit code from the service command where chkconfig reports runlevel 3 as off.
