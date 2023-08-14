@@ -38,14 +38,19 @@ fi
 
 
 # General Info
-printf "${green}Contents of /etc/redhat-release :${nc} \n"
+printf "${blue}Contents of /etc/redhat-release :${nc} \n"
+printf "${green}"
 cat /etc/redhat-release
-printf "\nUNAME Info:\n\n"
+printf "${nc}"
+
+printf "\n${blue}UNAME Info:\n${nc}"
 uname -a
 printf "\n"
 
-printf "${green}Verify upgrade path...${nc}\n"
+printf "${blue}Verify upgrade path...${nc}\n"
+printf "${green}"
 printf "<<PLACEHOLDER>>\n\n"
+printf "${nc}"
 # Ensure source OS is 7.9 or 7.6 depending on ARCH
 
 printf "${green}Is RHEL running in FIPS mode?${nc}\n"
