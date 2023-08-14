@@ -19,6 +19,8 @@ printf "\n\n========================================\n"
 printf "=    EVT - RHEL Upgrade Pre-Flight     =\n"
 printf "========================================\n\n"
 
+printf "OMGWORK"
+
 printf "\nPlease make sure to check the known-limitations of Leapp Upgrade Tool:\n"
 printf "${nc}"
 printf "${green}"
