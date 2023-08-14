@@ -28,10 +28,12 @@ printf "${nc}"
 
 
 # Check to see if this is being run as root
-printf "${green}Check to see if running as root...${nc}"
+printf "\n\n${blue}Check to see if running as root...${nc}\n"
 if [ ! "$(whoami | grep "^root$")" ] ; then
-  echo "You must run this script as root!"
+  printf "${red}You must run this script as root!${nc}\n"
   exit
+elseif
+  printf "${green}\xE2\x9C\x94${nc}"
 fi
 
 
