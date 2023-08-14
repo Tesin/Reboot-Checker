@@ -29,18 +29,18 @@ printf "\n\n"
 printf "${nc}"
 
 
-# # Check to see if this is being run as root
-# printf "\n\n${blue}Check to see if running as root...${nc}\n"
-# if [ ! "$(whoami | grep "^root$")" ] ; then
-#   printf "... You must run this script as root!"
-#   exit
-# elif
-#   printf "Hi"
-# fi
+# Check to see if this is being run as root
+printf "\n\n${blue}Check to see if running as root...${nc}\n"
+if [ ! "$(whoami | grep "^root$")" ] ; then
+  printf "... You must run this script as root!"
+  exit
+elif
+  printf "\u2714"
+fi
 
 
 # General Info
-printf "${green}Contents of /etc/redhat-release :${nc}"
+printf "${green}Contents of /etc/redhat-release :${nc} \n"
 cat /etc/redhat-release
 uname -a
 printf "\n"
