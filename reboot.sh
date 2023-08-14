@@ -16,10 +16,8 @@ nc='\033[0m'
 
 printf "${blue}"
 printf "\n\n========================================\n"
-printf "=    EVT - RHEL Upgrade Pre-Flight     =\n"
+printf "=    ${nc}EVT - RHEL Upgrade Pre-Flight${blue}     =\n"
 printf "========================================\n\n"
-
-printf "OMGWORK"
 
 printf "\nPlease make sure to check the known-limitations of Leapp Upgrade Tool:\n"
 printf "${nc}"
@@ -35,20 +33,23 @@ if [ ! "$(whoami | grep "^root$")" ] ; then
   printf "... You must run this script as root!"
   exit
 else
-  printf ${green}"\u2714${nc}\n" # Green check mark
+  printf ${green}"\u2714${nc}\n\n" # Green check mark
 fi
 
 
 # General Info
 printf "${green}Contents of /etc/redhat-release :${nc} \n"
 cat /etc/redhat-release
+printf "\nUNAME Info:\n\n"
 uname -a
 printf "\n"
 
-printf "${green}Verify upgrade path...${nc}"
+printf "${green}Verify upgrade path...${nc}\n"
+printf "<<PLACEHOLDER>>\n\n"
 # Ensure source OS is 7.9 or 7.6 depending on ARCH
 
-printf "${green}Is RHEL running in FIPS mode?${nc}"
+printf "${green}Is RHEL running in FIPS mode?${nc}\n"
+printf "<<PLACEHOLDER>>\n\n"
 # Check if FIPS. Apparently this is a hard-stop and Red Hat recommends a new FIPS install versus in-place upgrade.
 
 # Check for services that are running but not chkconfig'd on. This section checks the exit code from the service command where chkconfig reports runlevel 3 as off.
