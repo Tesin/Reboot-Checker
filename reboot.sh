@@ -11,10 +11,12 @@
 # Declare color codes for use
 red='\033[0;31m'
 blue='\033[0;34m'
+green='\033[0;32m'
 nc='\033[0m'
-
+#printf "${green}...${nc}"
 
 # Check to see if this is being run as root
+printf "${green}Check to see if running as root...${nc}"
 if [ ! "$(whoami | grep "^root$")" ] ; then
   echo "You must run this script as root!"
   exit
@@ -22,6 +24,7 @@ fi
 
 
 # General Info
+printf "${green}Contents of /etc/redhat-release :${nc}"
 cat /etc/redhat-release
 uname -a
 echo
