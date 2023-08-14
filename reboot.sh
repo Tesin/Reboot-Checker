@@ -19,18 +19,17 @@ printf "\n\n========================================\n"
 printf "=    ${nc}EVT - RHEL Upgrade Pre-Flight${blue}     =\n"
 printf "========================================\n\n"
 
-printf "\nPlease make sure to check the known-limitations of Leapp Upgrade Tool:\n"
-printf "${nc}"
+printf "\nPlease make sure to check the known-limitations of Leapp Upgrade Tool:${nc}\n"
 printf "${green}"
 printf 'https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/upgrading_from_rhel_7_to_rhel_8/planning-an-upgrade_upgrading-from-rhel-7-to-rhel-8'
-printf "\n\n"
 printf "${nc}"
+printf "\n\n\n"
 
 
 # Check to see if this is being run as root
 printf "\n\n${blue}Check to see if running as root...${nc}\n"
 if [ ! "$(whoami | grep "^root$")" ] ; then
-  printf "... You must run this script as root!"
+  printf "${red}... You must run this script as root!${nc}"
   exit
 else
   printf ${green}"\u2714${nc}\n" # Green check mark
