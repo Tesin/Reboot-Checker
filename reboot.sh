@@ -103,7 +103,7 @@ printf "\n\n"
 
 # Check filesystems for possibility of fsck. As of right now this only checks for ext filesystems. This probably shouold be expanded to include other types.
 printf "${blue}Check filesystems for possibility of fsck\n${nc}"
-for filesystem in $(mount | grep -i ext | awk '{print $1}'); do
+for filesystem in $(mount | egrep -i 'xfs|nvm' | awk '{print $1}'); do
   printf "${blue}$filesystem\n${nc}"
   tune2fs -l $filesystem | egrep -i 'mount count|maximum mount count|last checked|check interval'
   printf "\n\n"
