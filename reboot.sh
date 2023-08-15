@@ -29,7 +29,7 @@ printf "\n\n\n"
 # Check to see if this is being run as root
 printf "${blue}Check to see if running as root...${nc}\n"
 if [ ! "$(whoami | grep "^root$")" ] ; then
-  printf "${red}... You must run this script as root!\n\n${nc}"
+  printf "${red}[ERROR]!... You must run this script as root!\n\n${nc}"
   exit
 else
   printf ${green}"\u2714${nc}\n" # Green check mark
